@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Geneds - Spring 2024 @ Illinois </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <div class="container-fluid bg-light">
+        <h2> General Education Course Query for Spring 2024 </h2>
+        <p class="lead"> Use the following form to query a list of courses fulfilling General Education requirements, by
+            Part of Term, category and location. <br /> This tool only returns courses offered for the Spring 2024
+            semester at the University of Illinois Urbana-Champaign. </p>
+        <form id="genEdRequest" onsubmit="return false;">
+            <div class="mt-3 row">
+                <div id="categories" class="col-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="qr1" name="1QR1" value="1QR1">
+                        <label class="form-check-label" for="qr1">Quantitative Reasoning 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="qr2" name="1QR2" value="1QR2">
+                        <label class="form-check-label" for="qr2">Quantitative Reasoning 2</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="ss" name="1SS" value="1SS">
+                        <label class="form-check-label" for="ss">Social Sciences</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="bsc" name="1BSC" value="1BSC">
+                        <label class="form-check-label" for="bsc">Behavioral Sciences</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="ls" name="1LS" value="1LS">
+                        <label class="form-check-label" for="ls">Natural Sciences - Life Sciences</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="ps" name="1PS" value="1PS">
+                        <label class="form-check-label" for="ps">Natural Sciences - Physical Sciences</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="hp" name="1HP" value="1HP">
+                        <label class="form-check-label" for="hp">Humanities - History & Philosophy</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="la" name="1LA" value="1LA">
+                        <label class="form-check-label" for="la">Humanities - Literature & the Arts</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="wcc" name="1WCC" value="1WCC">
+                        <label class="form-check-label" for="wcc">Cultural Studies - Western</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="nw" name="1NW" value="1NW">
+                        <label class="form-check-label" for="nw">Cultural Studies - Non-Western</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="us" name="1US" value="1US">
+                        <label class="form-check-label" for="us">Cultural Studies - US Minority</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="cll" name="1CLL" value="1CLL">
+                        <label class="form-check-label" for="cll">Advanced Composition</label>
+                    </div>
+                </div>
+                <div id="pot" class="col-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="pot1" name="1" value="1">
+                        <label class="form-check-label" for="pot1">Full-Term</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="pota" name="A" value="A">
+                        <label class="form-check-label" for="pota">Part of Term A (1st 8 weeks)</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="potb" name="B" value="B">
+                        <label class="form-check-label" for="potb">Part of Term B (2nd 8 weeks)</label>
+                    </div>
+                </div>
+                <div id="online" class="col-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="onlineSwitch" name="online" value="true">
+                        <label class="form-check-label" for="onlineSwitch">Online Course</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="getFormData()"> Search </button>
+        </form>
+        <div class="pt-3">
+            <div class="alert alert-success" role="alert" id="successfulSearch">
+                Successfully searched the database and returned these courses:
+            </div>
+            <div class="alert alert-danger" role="alert" id="failedSearch">
+                Error:
+            </div>
+        </div>
+        <table class="table" id="courses-table">
+            <thead>
+                <tr>
+                    <th> Course Name </th>
+                    <th> Department </th>
+                    <th> Course ID </th>
+                    <th> GenEd Categories </th>
+                    <th> <span style="border-bottom: 1px dotted #000;" data-bs-toggle="tooltip" data-bs-placement="top" title="Part of Term"> POT </span></th>
+                    <th> Course Explorer Link </th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script>
+    const genEdCategories = new Map();
+    genEdCategories.set("1QR1", "Quant Reasoning 1");
+    genEdCategories.set("1QR2", "Quant Reasoning 2")
+    genEdCategories.set("1SS", "Soc Sciences")
+    genEdCategories.set("1BSC", "Beh Sciences")
+    genEdCategories.set("1LS", "NatSci - Life Sciences")
+    genEdCategories.set("1PS", "NatSci - Physical Sciences")
+    genEdCategories.set("1HP", "Hum - Hist & Phil")
+    genEdCategories.set("1LA", "Hum - Lit & Arts")
+    genEdCategories.set("1WCC", "Cultural - Western")
+    genEdCategories.set("1NW", "Cultural - Non-Western")
+    genEdCategories.set("1US", "Cultural - US Minority")
+    genEdCategories.set("1CLL", "Adv Comp")
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+    const getFormData = async () => {
+        const categoriesStr = $("#categories [type=checkbox]:checked").toArray().map(r => $(r).attr("value")).join(",");
+        const potStr = $("#pot [type=checkbox]:checked").toArray().map(r => $(r).attr("value")).join(",");
+        const online = $("#online [type=checkbox]").is(":checked");
+        const table = new DataTable('#courses-table');
+        table.clear().draw(false);
+
+        if (categoriesStr == "" || potStr == "") {
+            $("#successfulSearch").hide();
+            $("#failedSearch").show();
+            $("#failedSearch").text(`Select at least 1 category and 1 part of term`)
+            setTimeout(() => {
+                $("#failedSearch").hide();
+            }, 5000)
+            return;
+        }
+
+        try {
+            const d = await $.get(`api/genedData?geneds=${categoriesStr}&pot=${potStr}&online=${online}`);
+            $("#successfulSearch").show();
+            $("#failedSearch").hide();
+            setTimeout(() => {
+                $("#successfulSearch").hide();
+            }, 5000)
+            d.forEach(obj => {
+                const r = [obj.courseTitle, obj.subjectName, `${obj.subjectID} ${obj.courseID}`, obj.genEds.split(",").map(r => genEdCategories.get(r)).join(", "), obj.pot.split("~").sort().join(", "), `<a class="link" target="_blank" href=\"https://courses.illinois.edu/schedule/2024/spring/${obj.subjectID}/${obj.courseID}\">link</a>`]
+                table.row.add(r).draw(false);
+            });
+        } catch (err) {
+            if (err.responseJSON.message) {
+                $("#successfulSearch").hide();
+                $("#failedSearch").show();
+                $("#failedSearch").text(`Error: ${err.responseJSON.message}`)
+                setTimeout(() => {
+                    $("#failedSearch").hide();
+                }, 5000)
+                return;
+            }
+        }
+    }
+
+
+    $(document).ready(() => {
+        $("#successfulSearch").hide();
+        $("#failedSearch").hide();
+
+        const table = new DataTable('#courses-table');
+        table.clear().draw(false);
+    })
+</script>
+
+</html>
