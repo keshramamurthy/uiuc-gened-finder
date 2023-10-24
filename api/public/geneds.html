@@ -127,7 +127,8 @@
                     <th> GenEd Categories </th>
                     <th> <span style="border-bottom: 1px dotted #000;" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Part of Term"> POT </span></th>
-                    <th> Course Explorer Link </th>
+                    <th> Avg GPA (hover for more info) </th>
+                    <th> Course Link </th>
                 </tr>
             </thead>
             <tbody>
@@ -152,10 +153,13 @@
     genEdCategories.set("1US", "Cultural - US Minority")
     genEdCategories.set("1CLL", "Adv Comp")
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    const tooltipEnabler = () => {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    }
+    tooltipEnabler();
     const getFormData = async () => {
         const categoriesStr = $("#categories [type=checkbox]:checked").toArray().map(r => $(r).attr("value")).join(",");
         const potStr = $("#pot [type=checkbox]:checked").toArray().map(r => $(r).attr("value")).join(",");
@@ -181,9 +185,18 @@
                 $("#successfulSearch").hide();
             }, 5000)
             d.forEach(obj => {
-                const r = [obj.courseTitle, obj.subjectName, `${obj.subjectID} ${obj.courseID}`, obj.genEds.split(",").map(r => genEdCategories.get(r)).join(", "), obj.pot.split("~").sort().join(", "), `<a class="link" target="_blank" href=\"https://courses.illinois.edu/schedule/2024/spring/${obj.subjectID}/${obj.courseID}\">link</a>`]
+                const r =
+                    [obj.courseTitle,
+                    obj.subjectName,
+                    `${obj.subjectID} ${obj.courseID}`,
+                    obj.genEds.split(",").map(r => genEdCategories.get(r)).join(", "),
+                    obj.pot.split("~").sort().join(", "),
+                    obj.gpa != "" && obj.gpa != 0 && obj.gpa ? `<span style="border-bottom: 1px dotted #000;" data-html="true" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Average GPA: ${obj.gpa}\nPercentage of 4.0s: ${obj.highGrades}\nPercentage of Low Grades (<= C): ${obj.lowGrades}"> ${obj.gpa} </span>` : "No data",
+                    `<a class="link" target="_blank" href=\"https://courses.illinois.edu/schedule/2024/spring/${obj.subjectID}/${obj.courseID}\">link</a>`]
                 table.row.add(r).draw(false);
             });
+            tooltipEnabler();
         } catch (err) {
             if (err.responseJSON.message) {
                 $("#successfulSearch").hide();
@@ -202,7 +215,9 @@
         $("#successfulSearch").hide();
         $("#failedSearch").hide();
 
-        const table = new DataTable('#courses-table');
+        const table = new DataTable('#courses-table', {
+            "drawCallback": tooltipEnabler
+        });
         table.clear().draw(false);
     })
 </script>

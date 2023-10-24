@@ -13,6 +13,10 @@ export type Course = {
     genEds: string;
     pot: string;
     location: string;
+
+    gpa: number;
+    highGrades: string;
+    lowGrades: string;
 }
 
 export type GenEd = "1QR1" | "1QR2" | "1SS" | "1BSC" | "1LS" | "1PS" | "1HP" | "1LA" | "1WCC" | "1NW" | "1US" | "1CLL";
