@@ -216,9 +216,53 @@
         $("#failedSearch").hide();
 
         const table = new DataTable('#courses-table', {
-            "drawCallback": tooltipEnabler
+            "drawCallback": tooltipEnabler,
+            "columns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { type: "gpa"},
+                null,
+            ]
         });
         table.clear().draw(false);
+    })
+
+    $.extend($.fn.dataTable.ext.type.order, {
+        "gpa-asc": (a, b) => {
+            console.log(a, b)
+            if (a === "No data" && b === "No data") {
+                return 0;
+            }
+            if (a === "No data") {
+                return 1;
+            }
+            if (b === "No data") {
+                return -1;
+            } 
+            a = parseFloat($(a).text())
+            b = parseFloat($(b).text())
+
+            return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+        },
+        "gpa-desc": (a, b) => {
+            console.log(a, b)
+            if (a === "No data" && b === "No data") {
+                return 0;
+            }
+            if (a === "No data") {
+                return 1;
+            }
+            if (b === "No data") {
+                return -1;
+            } 
+            a = parseFloat($(a).text())
+            b = parseFloat($(b).text())
+
+            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+        }
     })
 </script>
 
