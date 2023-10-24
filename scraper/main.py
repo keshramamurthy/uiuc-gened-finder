@@ -1,4 +1,5 @@
 from scrape_links import scrape_links as scrape
+from gpa import geneds_gpa_calc
 from store_data import store_gened_term_and_location_data, store_data as store
 
 # Initialize and store ALL data
@@ -11,3 +12,6 @@ store()
 
 # Run this to update term and location data for geneds
 store_gened_term_and_location_data()
+
+# Run this to update GPA data for geneds alone
+geneds_gpa_calc()

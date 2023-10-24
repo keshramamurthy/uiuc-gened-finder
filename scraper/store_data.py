@@ -115,6 +115,15 @@ def save_to_db(tuple: tuple, cur: sqlite3.Cursor):
     except Exception as err:
         print(err.with_traceback())
         return None
+    
+# Save the grades & GPA data about a particular course into the database
+def save_gpa_data(tuple: tuple[str, str, float, str, str], cur: sqlite3.Cursor):
+    if tuple != None:
+        try:
+            cur.execute(f"UPDATE courses SET gpa={tuple[2]}, highGrades=\'{tuple[3]}\', lowGrades=\'{tuple[4]}\' WHERE subjectID=\'{tuple[0]}\' AND courseID=\'{tuple[1]}\';")
+        except Exception as err:
+            print(err.with_traceback())
+            return None
 
 # Get a list of all courses that fulfill at least one general education requirement
 def get_all_gened_courses(cur: sqlite3.Cursor):
