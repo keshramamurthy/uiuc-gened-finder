@@ -1,10 +1,10 @@
 import express from "express";
-import { AsyncDatabase } from "promised-sqlite3";
 import { Course } from "./types/Course";
 import path from "path";
+import { DatabaseHandler } from "./util/Db";
+import { LogData, Logger } from "./util/Logger";
 
 // Constants
-const DATABASE_PATH = "../sp24-courses.db"; // Change this to the database you saved to while scraping
 const GENED_CATEGORIES = new Map();
     GENED_CATEGORIES.set("1QR1", "Quant Reasoning 1");
     GENED_CATEGORIES.set("1QR2", "Quant Reasoning 2")
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 // This endpoint returns some general data on the semester which is viewed at the index.html page
 app.get("/api/generalData", async (req, res) => {
-    const db = await AsyncDatabase.open(DATABASE_PATH);
+    const db = await DatabaseHandler.getInstance().getDb();
 
     const numRaw = (await db.get("SELECT COUNT(*) AS count FROM courses;")) as any;
     const num = numRaw.count;
@@ -85,7 +85,7 @@ app.get("/api/genedData", async (req, res) => {
         });
     }
 
-    const db = await AsyncDatabase.open(DATABASE_PATH);
+    const db = await DatabaseHandler.getInstance().getDb();
     let genEdList = await db.all("SELECT * FROM courses WHERE genEds != \"\" AND pot is NOT NULL AND location is NOT NULL;") as Course[];
 
     // Internal separator is ~ for location and parts of term
@@ -108,7 +108,16 @@ app.get("/api/genedData", async (req, res) => {
             message: "No courses found"
         });
     }
-
+    const logObj: LogData = {
+        date: new Date(),
+        data: {
+            geneds,
+            pot,
+            onlineStr
+        },
+        type: "SUBMIT"
+    };
+    Logger.getInstance().logInfo(logObj);
     return res.json(genEdList);
 })
 
