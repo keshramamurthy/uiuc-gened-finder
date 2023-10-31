@@ -10,8 +10,8 @@ def scrape_links():
     data = requests.get(
         f"https://courses.illinois.edu/cisapp/explorer/schedule/{year}/{semester}.xml"
     )
-    fileExists = open("links.txt", "r+")
     f = open("links.txt", "a+")
+    fileExists = open("links.txt", "r+")
     if fileExists.read() != "":
         print("WARN: links.txt has already been populated")
         return

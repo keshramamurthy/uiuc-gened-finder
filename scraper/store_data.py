@@ -11,13 +11,13 @@ def store_data():
     con = sqlite3.connect(DATABASE_PATH)
     cur = con.cursor()
 
-    cur.execute("CREATE TABLE IF NOT EXISTS courses(courseTitle, courseDesc, courseID, subjectID, subjectName, creditHrs, url, genEds)")
+    cur.execute("CREATE TABLE IF NOT EXISTS courses(courseTitle, courseDesc, courseID, subjectID, subjectName, creditHrs, url, genEds, pot, location, gpa, highGrades, lowGrades)")
 
     f = open("links.txt", "r+")
     f_data = f.read()
     if f_data == "":
         raise ValueError("ERR: links.txt is empty")
-    links = f_data.read().split("\n")
+    links = f_data.split("\n")
 
     for link in links:
         d = grab_data(link)

@@ -6,3 +6,6 @@ links.txt
 build
 *.csv
 *.db
+*.db-journal
+*.sql
+.DS_Store
