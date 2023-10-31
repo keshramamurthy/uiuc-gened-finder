@@ -4,3 +4,5 @@ package-lock.json
 .vscode
 links.txt
 build
+*.csv
+*.db
