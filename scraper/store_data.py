@@ -14,7 +14,10 @@ def store_data():
     cur.execute("CREATE TABLE IF NOT EXISTS courses(courseTitle, courseDesc, courseID, subjectID, subjectName, creditHrs, url, genEds)")
 
     f = open("links.txt", "r+")
-    links = f.read().split("\n")
+    f_data = f.read()
+    if f_data == "":
+        raise ValueError("ERR: links.txt is empty")
+    links = f_data.read().split("\n")
 
     for link in links:
         d = grab_data(link)
